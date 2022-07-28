@@ -81,10 +81,46 @@ function playRound(player,computerSelection){
 
 function game(){
 
+let playerWin = 0;
+let computerWin = 0;
+
+    while(playerWin < 5 && computerWin < 5){
+
     let computerSelection = getComputerChoice();
     let player = playerSelection();
 
 console.log(playRound(player,computerSelection));
+
+if(computerSelection === "Rock" && player === "Scissor"){
+    computerWin++;
+   }
+   else if(computerSelection === "Paper" && player === "Rock"){
+    computerWin++;
+   }
+   else if(computerSelection === "Scissor" && player === "Paper"){
+    computerWin++;
+   }
+   else if(computerSelection === "Scissor" && player === "Rock"){
+    playerWin++;
+   }
+   else if(computerSelection === "Rock" && player === "Paper"){
+    playerWin++;
+   }
+   else if(computerSelection === "Paper" && player === "Scissor"){
+    playerWin++;
+   }
+
+   console.log("Player wins: " +playerWin + " Computer wins: " + computerWin)
+    }
+
+if(computerWin == 5){
+    console.log("Computer has bested you")
+}
+
+if(playerWin == 5){
+    console.log("You have shown the machine")
+}
+
 
 }
 

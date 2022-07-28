@@ -6,7 +6,7 @@ function getComputerChoice(){
         move = "Rock";
 
     }else if(randomNumber == 2){
-        move = "Papper";
+        move = "Paper";
 
     }else if(randomNumber == 3){
         move = "Scissor";
@@ -19,7 +19,7 @@ function getComputerChoice(){
 
 function playerSelection(){
 
-    let playerInput = prompt("Enter Rock,Paper or Scissor to defeat the machine");
+    let playerInput = prompt("Enter Rock,Papper or Scissor to defeat the machine");
     let capLetter = playerInput.substring(0,1);
     let rest = playerInput.substring(1);
     playerInput = capLetter.toUpperCase() + rest.toLowerCase();
@@ -27,8 +27,8 @@ function playerSelection(){
 
     if(playerInput.trim() == "Rock"){
         move = "Rock";
-    } else if(playerInput.trim() == "Papper"){
-        move = "Papper";
+    } else if(playerInput.trim() == "Paper"){
+        move = "Paper";
     } else if(playerInput.trim() == "Scissor"){
         move = "Scissor";
     }else{
@@ -36,11 +36,56 @@ function playerSelection(){
     }
 
     return move;
-    
+      
+}
 
-    
+
+
+
+
+
+function playRound(player,computerSelection){
+    let outcome;
+
+
+   if(computerSelection === "Rock" && player === "Scissor"){
+    outcome = "You lose!! " + computerSelection + " beats " + player;
+   }
+   else if(computerSelection === "Paper" && player === "Rock"){
+    outcome = "You lose!! " + computerSelection + " beats " + player;
+   }
+   else if(computerSelection === "Scissor" && player === "Paper"){
+    outcome = "You lose!! " + computerSelection + " beats " + player;
+   }
+   else if(computerSelection === "Scissor" && player === "Rock"){
+    outcome = "You win!! " + player + " beats " + computerSelection;
+   }
+   else if(computerSelection === "Rock" && player === "Paper"){
+    outcome = "You win!! " + player + " beats " + computerSelection;
+   }
+   else if(computerSelection === "Paper" && player === "Scissor"){
+    outcome = "You win!! " + computerSelection + " beats " + computerSelection;
+   }
+   else{
+    outcome = "It is a tie";
+   }
+
+   return outcome;
+
 
 }
 
-console.log(getComputerChoice());
-console.log(playerSelection());
+
+
+
+
+function game(){
+
+    let computerSelection = getComputerChoice();
+    let player = playerSelection();
+
+console.log(playRound(player,computerSelection));
+
+}
+
+game();

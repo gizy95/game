@@ -91,24 +91,15 @@ let computerWin = 0;
 
 console.log(playRound(player,computerSelection));
 
-if(computerSelection === "Rock" && player === "Scissor"){
-    computerWin++;
-   }
-   else if(computerSelection === "Paper" && player === "Rock"){
-    computerWin++;
-   }
-   else if(computerSelection === "Scissor" && player === "Paper"){
-    computerWin++;
-   }
-   else if(computerSelection === "Scissor" && player === "Rock"){
+let message = playRound(player,computerSelection);
+message = message.substring(0,8);
+if(message === "You win!"){
     playerWin++;
-   }
-   else if(computerSelection === "Rock" && player === "Paper"){
-    playerWin++;
-   }
-   else if(computerSelection === "Paper" && player === "Scissor"){
-    playerWin++;
-   }
+}
+
+if(message === "You lose"){
+    computerWin++;
+}
 
    console.log("Player wins: " +playerWin + " Computer wins: " + computerWin)
     }

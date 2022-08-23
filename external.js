@@ -1,3 +1,13 @@
+const buttons = document.querySelectorAll("button");
+const playerDiv = document.querySelector("#playerScore");
+const computerDiv = document.querySelector("#computerScore");
+const winner = document.querySelector("#winner");  
+const outcomeDiv = document.querySelector("#outcome");
+
+let playerSelection;
+let playerScore = 0;
+let computerScore = 0;
+
 function getComputerChoice(){
     let randomNumber = Math.floor(Math.random()*3) + 1;
     let move;
@@ -16,31 +26,36 @@ function getComputerChoice(){
     return move;
 }
 
+buttons.forEach((button) =>{
 
-function playerSelection(){
-
-    let playerInput = prompt("Enter Rock,Papper or Scissor to defeat the machine");
-    let capLetter = playerInput.substring(0,1);
-    let rest = playerInput.substring(1);
-    playerInput = capLetter.toUpperCase() + rest.toLowerCase();
-    let move;
-
-    if(playerInput.trim() == "Rock"){
-        move = "Rock";
-    } else if(playerInput.trim() == "Paper"){
-        move = "Paper";
-    } else if(playerInput.trim() == "Scissor"){
-        move = "Scissor";
-    }else{
-        alert("Input was not valid try again");
+    button.addEventListener("click", function(){
+        playerSelection = button.innerText;
+        playRound(playerSelection,getComputerChoice());
+           
+    if(playerScore === 5){
+        winner.innerText = "You have won against the machine";          
+        buttons.forEach(e => e.remove());
+        reset();
+        
     }
 
-    return move;
-      
-}
-
-
-
+    if(computerScore === 5){
+        winner.innerText = "Machine have destroyed you";   
+        buttons.forEach(e => e.remove());
+        reset();
+        
+    }     
+    });  
+    
+});
+    
+function reset() {
+    var button = document.createElement("button");
+    var text = document.createTextNode("Reset game");
+    button.appendChild(text);
+    document.body.appendChild(button);
+    button.addEventListener('click',() => location.reload());
+  }
 
 
 
@@ -49,70 +64,39 @@ function playRound(player,computerSelection){
 
 
    if(computerSelection === "Rock" && player === "Scissor"){
-    outcome = "You lose!! " + computerSelection + " beats " + player;
+    outcomeDiv.innerText = "You lose!! " + computerSelection + " beats " + player;
+    computerScore++;
+    computerDiv.innerText = "Computer score: " + computerScore;
    }
    else if(computerSelection === "Paper" && player === "Rock"){
-    outcome = "You lose!! " + computerSelection + " beats " + player;
+    outcomeDiv.innerText = "You lose!! " + computerSelection + " beats " + player;
+    computerScore++;
+    computerDiv.innerText = "Computer score: " + computerScore;
    }
    else if(computerSelection === "Scissor" && player === "Paper"){
-    outcome = "You lose!! " + computerSelection + " beats " + player;
+    outcomeDiv.innerText = "You lose!! " + computerSelection + " beats " + player;
+    computerScore++;
+    computerDiv.innerText = "Computer score: " + computerScore;
    }
    else if(computerSelection === "Scissor" && player === "Rock"){
-    outcome = "You win!! " + player + " beats " + computerSelection;
+    outcomeDiv.innerText = "You win!! " + player + " beats " + computerSelection;
+    playerScore++
+    playerDiv.innerText ="Player score: " +  playerScore;
    }
    else if(computerSelection === "Rock" && player === "Paper"){
-    outcome = "You win!! " + player + " beats " + computerSelection;
+    outcomeDiv.innerText = "You win!! " + player + " beats " + computerSelection;
+    playerScore++;
+    playerDiv.innerText = "Player score: " +  playerScore;
    }
    else if(computerSelection === "Paper" && player === "Scissor"){
-    outcome = "You win!! " + computerSelection + " beats " + computerSelection;
+    outcomeDiv.innerText = "You win!! " + computerSelection + " beats " + computerSelection;
+    playerScore++;
+    playerDiv.innerText = "Player score: " +  playerScore;
    }
    else{
-    outcome = "It is a tie";
+    outcomeDiv.innerText = "It is a tie";
    }
 
    return outcome;
 
-
 }
-
-
-
-
-
-function game(){
-
-let playerWin = 0;
-let computerWin = 0;
-
-    while(playerWin < 5 && computerWin < 5){
-
-    let computerSelection = getComputerChoice();
-    let player = playerSelection();
-
-console.log(playRound(player,computerSelection));
-
-let message = playRound(player,computerSelection);
-message = message.substring(0,8);
-if(message === "You win!"){
-    playerWin++;
-}
-
-if(message === "You lose"){
-    computerWin++;
-}
-
-   console.log("Player wins: " +playerWin + " Computer wins: " + computerWin)
-    }
-
-if(computerWin == 5){
-    console.log("Computer has bested you")
-}
-
-if(playerWin == 5){
-    console.log("You have shown the machine")
-}
-
-
-}
-
-game();
